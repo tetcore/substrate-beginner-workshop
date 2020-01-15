@@ -1,11 +1,11 @@
 # Getting Started
 
-Please complete the instructions on this page before attending the [Parity Substrate](https://www.parity.io/substrate/) workshop. You only need to complete this one page, we will look at the other pages during the workshop.
+Please complete these instructions before attending the Parity Substrate workshop. You only need to complete this one page, we will look at the other pages during the workshop.
 
-If you have any problems with the instructions on this page, feel free to send us an email at:
+If you have any problems with these instructions feel free to:
 
-* shawn@parity.io
-* joshy@parity.io
+* Open a [github issue](https://github.com/substrate-developer-hub/substrate-beginner-workshop/issues/new)
+* Send an email to joshy@parity.io
 
 ## Instructions
 

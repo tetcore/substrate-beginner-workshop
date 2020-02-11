@@ -28,7 +28,7 @@ Proofs: map Vec<u8> => (T::AccountId, T::BlockNumber);
 #### ** Solution **
 
 ```rust
-use support::{decl_storage, decl_module, decl_event};
+use frame_support::{decl_storage, decl_module, decl_event};
 use sp_std::prelude::Vec;
 
 pub trait Trait: system::Trait {

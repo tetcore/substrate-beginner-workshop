@@ -1,7 +1,7 @@
 # Final Runtime
 
 ```rust
-use support::{decl_module, decl_storage, decl_event, ensure};
+use frame_support::{decl_module, decl_storage, decl_event, ensure};
 use sp_std::vec::Vec;
 use system::ensure_signed;
 

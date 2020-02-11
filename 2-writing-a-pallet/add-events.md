@@ -40,7 +40,7 @@ fn deposit_event() = default;
 #### ** Solution **
 
 ```rust
-use support::{decl_module, decl_storage, decl_event};
+use frame_support::{decl_module, decl_storage, decl_event};
 use sp_std::prelude::Vec;
 
 pub trait Trait: system::Trait {

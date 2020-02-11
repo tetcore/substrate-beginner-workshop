@@ -6,11 +6,12 @@ I've already started a network with two nodes. As a first step, let's try out th
 
 I think of this UI as a multimeter for Substrate-based blockchains.
 
-You can try out the Apps UI at:
+You can try out the Apps UI by connecting to:
 
-* [https://polkadot.js.org/apps/#/explorer?rpc=wss://retreat.bootnodes.net:9944](https://polkadot.js.org/apps/#/explorer?rpc=wss://retreat.bootnodes.net:9944)
+* Alice's Node: [https://polkadot.js.org/apps/#/explorer?rpc=wss://denver.bootnodes.net/alice](https://polkadot.js.org/apps/#/explorer?rpc=wss://denver.bootnodes.net/alice)
+* Bob's Node: [https://polkadot.js.org/apps/#/explorer?rpc=wss://denver.bootnodes.net/bob](https://polkadot.js.org/apps/#/explorer?rpc=wss://denver.bootnodes.net/bob)
 
-You can see we have explicitly set the UI to use a WebSocket endpoint exposed at `wss://retreat.bootnodes.net:9944`. This can be changed on the Settings tab as we'll see shortly.
+You can see we have explicitly set the UI to use a WebSocket endpoint exposed at `wss://denver.bootnodes.net/alice` (or `/bob`). This can be changed on the Settings tab as we'll see shortly.
 
 ## Frontend Template
 

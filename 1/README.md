@@ -15,7 +15,7 @@ You will need:
 
 Get that configuration file here:
 
-https://retreat.bootnodes.net/spec.json
+https://denver.bootnodes.net/spec.json
 
 Take a look at the JSON!
 

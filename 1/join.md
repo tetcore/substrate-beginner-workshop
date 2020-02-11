@@ -2,7 +2,7 @@
 
 You can use the `substrate-node-template` you compiled earlier and this chain specification file to connect to our network.
 
-1. Save the [`spec.json`](http://167.172.206.230/spec.json) file in the `substrate-node-template` folder.
+1. Save the [`spec.json`](https://denver.bootnodes.net/spec.json) file in the `substrate-node-template` folder.
 
 2. Launch your node:
 
@@ -18,8 +18,8 @@ It will use these bootstrap nodes:
 
 ```json
 "bootNodes": [
-    "/dns4/retreat.bootnodes.net/tcp/30333/p2p/QmNdzun5tXSo7TPEntmujvU3eLEjTJKfXpJAvwp1ikpa6T",
-    "/ip4/167.71.86.67/tcp/30333/p2p/QmdP4qG1ZSgzmsdFpBwuPAVWG9zjPRHV3dSkTT8v4TGP4J"
+	"/dns4/denver.bootnodes.net/tcp/30333/p2p/QmVQ8v2tDEVeSaCyn1tc58rk6wG87B3auXtAyTeyrf9tXb",
+	"/dns4/denver.bootnodes.net/tcp/30303/p2p/QmZ9KWNfuQvurQpoF8TWJndFqR9uiRudUm99Jngsw3yKj7"
 ],
 
 ```

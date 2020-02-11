@@ -12,7 +12,7 @@ You can use the `substrate-node-template` you compiled earlier and this chain sp
 		--name YourNodeName
 	```
 
-> You can use the flag `--log sub-libp2p,sync` for verbose network logs for debugging if you need it.
+> You can use the flag `--help` to learn about lots more flags available
 
 It will use these bootstrap nodes:
 

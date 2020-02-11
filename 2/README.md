@@ -1,7 +1,7 @@
 # Proof Of Existence Chain
 
-The custom logic we will add to your Substrate runtime is a Proof of Existence
-module. From [Wikipedia](https://en.wikipedia.org/wiki/Proof_of_Existence): 
+The custom pallet we will add to our Substrate runtime implements Proof of Existence
+logic. From [Wikipedia](https://en.wikipedia.org/wiki/Proof_of_Existence):
 
 > Proof of Existence is an online service that verifies the existence of
 > computer files as of a specific time via timestamped transactions in the
@@ -21,7 +21,7 @@ a file digest is stored on the blockchain, we can also record which user
 uploaded that digest. This allows that user to later prove that they were the
 original person to claim the file.
 
-Our Proof of Existence module will expose two callable functions:
+Our Proof of Existence pallet will expose two callable functions:
 
 * `create_claim` - allows a user to claim the existence of a file by uploading a
   file digest.

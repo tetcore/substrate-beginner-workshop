@@ -1,13 +1,13 @@
-# Balances Module
+# Balances Pallet
 
-The [Balances module](https://substrate.dev/rustdocs/master/srml_balances/index.html) comes in the Substrate Runtime Module Library.
+The [Balances pallet](https://substrate.dev/rustdocs/master/pallet_balances/index.html) comes as part of Substrate.
 
 It implements the `Currency` and `ReservableCurrency` trait.
 
 ## Directly Add Balances
 
 ```rust
-/// The module's configuration trait.
+/// The pallet's configuration trait.
 pub trait Trait: system::Trait + new_module::Trait {
 	//---------------------------^^^^^^^^^^^^^^^^^
 	type Event: From<Event<Self>> + Into<<Self as system::Trait>::Event>;
@@ -17,8 +17,8 @@ pub trait Trait: system::Trait + new_module::Trait {
 ### Access Functions
 
 ```rust
-// Call a functions exposed by the module from the `Module` struct
-<new_module::Module<T>>::my_function();
+// Call a functions exposed by the pallet from the `Module` struct
+<new_pallet::Module<T>>::my_function();
 ```
 
 > **Note:** We need to import the traits which implement the functions we need!
@@ -33,10 +33,10 @@ Click the other tabs to view hints.
 
 ![Money Icon](./assets/balances.png ':size=300')
 
-#### ** Add Balances Module **
+#### ** Add Balances Pallet **
 
 ```rust
-/// The module's configuration trait.
+/// The pallet's configuration trait.
 pub trait Trait: system::Trait + balances::Trait {
 	//--add-this-----------------^^^^^^^^^^^^^^^^^
 	type Event: From<Event<Self>> + Into<<Self as system::Trait>::Event>;
@@ -93,13 +93,13 @@ use rstd::vec::Vec;
 use system::ensure_signed;
 use support::traits::{ReservableCurrency};
 
-/// The module's configuration trait.
+/// The pallet's configuration trait.
 pub trait Trait: system::Trait + balances::Trait {
 	/// The overarching event type.
 	type Event: From<Event<Self>> + Into<<Self as system::Trait>::Event>;
 }
 
-// This module's events.
+// This pallet's events.
 decl_event! {
 	pub enum Event<T> where AccountId = <T as system::Trait>::AccountId {
 		/// Event emitted when a proof has been claimed.
@@ -109,7 +109,7 @@ decl_event! {
 	}
 }
 
-// This module's storage items.
+// This pallet's storage items.
 decl_storage! {
 	trait Store for Module<T: Trait> as PoeStorage {
 		/// The storage item for our proofs.
@@ -118,7 +118,7 @@ decl_storage! {
 	}
 }
 
-// The module's dispatchable functions.
+// The pallet's dispatchable functions.
 decl_module! {
 	/// The module declaration.
 	pub struct Module<T: Trait> for enum Call where origin: T::Origin {
@@ -137,7 +137,7 @@ decl_module! {
 			// Try to reserve the deposit from the user
 			<balances::Module<T>>::reserve(&sender, 1000.into())?;
 
-			// Call the `system` runtime module to get the current block number
+			// Call the `system` pallet to get the current block number
 			let current_block = <system::Module<T>>::block_number();
 
 			// Store the proof with the sender and the current block number

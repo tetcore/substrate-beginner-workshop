@@ -6,7 +6,7 @@ A trait tells the Rust compiler about functionality a particular type has and ca
 
 > **Note:** Traits are similar to a feature often called interfaces in other languages, although with some differences.
 
-In this section we will use Substrate's included balances module and integrate it into our custom runtime module. We will introduce a deposit for when users store a proof on-chain:
+In this section we will use Substrate's included balances pallet and integrate it into our custom pallet. We will introduce a deposit for when users store a proof on-chain:
 
 * Users who submit a proof will have to "reserve" a fee.
 

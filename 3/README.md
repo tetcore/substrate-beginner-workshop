@@ -1,6 +1,6 @@
 # Runtime Upgrade
 
-Now that we have created a new module, let's upgrade our live chain. We'll use the forkless upgrade mechanism described previously.
+Now that we have created a new pallet, let's upgrade our live chain. We'll use the forkless upgrade mechanism described previously.
 
 > Only **one person** should submit the upgrade transaction.
 
@@ -13,13 +13,13 @@ For the upgrade, we need the compiled wasm runtime which lives in `target/releas
 ## Submit the Transaction
 Upgrading the runtime is serious and you can't just do it willy-nilly. Calling `set_code` directly fails. Instead we make a sudo call.
 
-## About the Sudo Module
+## About the Sudo Pallet
 
-The `sudo` module is a _simple_ governance mechanism where one key gets to be dictator.
+The `sudo` pallet is a _simple_ governance mechanism where one key gets to be dictator.
 
 It checks that any call submitted to it comes from the authorized person, like your `revoke_claim` function.
 
-More advanced governance is possible. Consider the [Democracy module](https://substrate.dev/rustdocs/master/srml_democracy/index.html) or writing your own custom governance.
+More advanced governance is possible. Consider the [Democracy pallet](https://substrate.dev/rustdocs/master/pallet_democracy/index.html) or writing your own custom governance.
 
 <!-- slide:break-60 -->
 

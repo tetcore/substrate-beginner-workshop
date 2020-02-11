@@ -1,6 +1,6 @@
 # Create Claim
 
-We will create our first runtime module function.
+We will create our pallet's first function.
 
 * Function
 	* `create_claim()`
@@ -14,7 +14,7 @@ We will create our first runtime module function.
 	* Proof does not exist
 
 * Logic
-	* Get block number from system module
+	* Get block number from system pallet
 	* Insert proof with owner and block number data
 
 <!-- slide:break-40 -->
@@ -55,7 +55,7 @@ ensure!(!Proofs::<T>::exists(&proof), "This proof has already been claimed.");
 #### ** Hint: Logic **
 
 ```rust
-// Call the `system` runtime module to get the current block number
+// Call the `system` pallet to get the current block number
 let current_block = <system::Module<T>>::block_number();
 
 // Store the proof with the sender and the current block number
@@ -108,7 +108,7 @@ decl_module! {
 			// Verify that the specified proof has not been claimed yet or error with the message
 			ensure!(!Proofs::<T>::exists(&proof), "This proof has already been claimed.");
 
-			// Call the `system` runtime module to get the current block number
+			// Call the `system` pallet to get the current block number
 			let current_block = <system::Module<T>>::block_number();
 
 			// Store the proof with the sender and the current block number

@@ -1,6 +1,6 @@
 # Configurable Constants
 
-Rather than hard-code the fee of our module, we can also allow that to be a configurable trait.
+Rather than hard-code the fee of our pallet, we can also allow that to be a configurable trait.
 
 ## Get Trait
 

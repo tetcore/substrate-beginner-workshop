@@ -10,7 +10,7 @@
 	* [Join the Network](1/join.md)
 	* [Interact with Your Node](1/interact.md)
 
-* [Writing a Module](2/)
+* [Writing a Pallet](2/)
 	* [Presentation](2/presentation.md)
 	* [Starting Point](2/starting-point.md)
 	* [Add Events](2/add-events.md)
@@ -25,7 +25,7 @@
 
 * [Using Traits](4/)
 	* [Currency](4/currency.md)
-	* [Balances Module](4/balances.md)
+	* [Balances Pallet](4/balances.md)
 	* [Configurable Traits](4/traits.md)
 	* [Configurable Constants](4/get.md)
 	* [Final Runtime](4/final.md)

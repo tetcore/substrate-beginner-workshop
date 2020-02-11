@@ -1,6 +1,6 @@
 # Configuration Traits
 
-Rather than _directly_ depend on the Balances module from within our runtime module, we can instead define a configurable trait!
+Rather than _directly_ depend on the Balances pallet from within our pallet, we can instead define a configurable trait!
 
 ## Define Currency Type
 
@@ -27,7 +27,7 @@ T::Currency::unreserve(&sender, 1000.into());
 
 ## Implement Currency Type
 
-Then you can implement this trait _using_ the balances module, but outside of your runtime module.
+Then you can implement this trait _using_ the balances pallet, but outside of your own pallet.
 
 **runtime/src/lib.rs**
 
@@ -52,7 +52,7 @@ use rstd::vec::Vec;
 use system::ensure_signed;
 use support::traits::ReservableCurrency;
 
-/// The module's configuration trait.
+/// The pallet's configuration trait.
 pub trait Trait: system::Trait {
 	/// The overarching event type.
 	type Event: From<Event<Self>> + Into<<Self as system::Trait>::Event>;
@@ -60,7 +60,7 @@ pub trait Trait: system::Trait {
 	type Currency: ReservableCurrency<Self::AccountId>;
 }
 
-// This module's events.
+// This pallet's events.
 decl_event! {
 	pub enum Event<T> where AccountId = <T as system::Trait>::AccountId {
 		/// Event emitted when a proof has been claimed.
@@ -70,7 +70,7 @@ decl_event! {
 	}
 }
 
-// This module's storage items.
+// This pallet's storage items.
 decl_storage! {
 	trait Store for Module<T: Trait> as PoeStorage {
 		/// The storage item for our proofs.
@@ -79,7 +79,7 @@ decl_storage! {
 	}
 }
 
-// The module's dispatchable functions.
+// The pallet's dispatchable functions.
 decl_module! {
 	/// The module declaration.
 	pub struct Module<T: Trait> for enum Call where origin: T::Origin {
@@ -98,7 +98,7 @@ decl_module! {
 			// Try to reserve the deposit from the user
 			T::Currency::reserve(&sender, 1000.into())?;
 
-			// Call the `system` runtime module to get the current block number
+			// Call the `system` pallet to get the current block number
 			let current_block = <system::Module<T>>::block_number();
 
 			// Store the proof with the sender and the current block number

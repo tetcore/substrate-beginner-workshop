@@ -11,7 +11,7 @@ use rstd::vec::Vec;
 use system::ensure_signed;
 use support::traits::{Currency, ReservableCurrency, Get};
 
-/// The module's configuration trait.
+/// The pallet's configuration trait.
 pub trait Trait: system::Trait {
 	/// The overarching event type.
 	type Event: From<Event<Self>> + Into<<Self as system::Trait>::Event>;
@@ -23,7 +23,7 @@ pub trait Trait: system::Trait {
 
 type BalanceOf<T> = <<T as Trait>::Currency as Currency<<T as system::Trait>::AccountId>>::Balance;
 
-// This module's events.
+// This pllet's events.
 decl_event! {
 	pub enum Event<T> where AccountId = <T as system::Trait>::AccountId {
 		/// Event emitted when a proof has been claimed.
@@ -33,7 +33,7 @@ decl_event! {
 	}
 }
 
-// This module's storage items.
+// This pallet's storage items.
 decl_storage! {
 	trait Store for Module<T: Trait> as PoeStorage {
 		/// The storage item for our proofs.
@@ -42,7 +42,7 @@ decl_storage! {
 	}
 }
 
-// The module's dispatchable functions.
+// The pallet's dispatchable functions.
 decl_module! {
 	/// The module declaration.
 	pub struct Module<T: Trait> for enum Call where origin: T::Origin {
@@ -61,7 +61,7 @@ decl_module! {
 			// Try to reserve the deposit from the user
 			T::Currency::reserve(&sender, T::Fee::get())?;
 
-			// Call the `system` runtime module to get the current block number
+			// Call the `system` pallet to get the current block number
 			let current_block = <system::Module<T>>::block_number();
 
 			// Store the proof with the sender and the current block number
@@ -107,7 +107,7 @@ parameter_types! {
 	pub const Fee: Balance = 1000;
 }
 
-/// Used for the module template in `./template.rs`
+/// Used for the pallet template in `./template.rs`
 impl template::Trait for Runtime {
 	type Event = Event;
 	type Currency = Balances;

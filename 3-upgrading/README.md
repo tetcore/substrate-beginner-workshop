@@ -8,6 +8,8 @@ Now that we have created a new pallet, let's upgrade our live chain. We'll use t
 
 Ensure your new runtime is compiled by running `cargo build --release` as we have done before.
 
+> You **Must** update the `spec_version` in your runtime for the upgrade to work properly.
+
 For the upgrade, we need the compiled wasm runtime which lives in `target/release/wbuild/node-template-runtime/node_template_runtime.compact.wasm`.
 
 ## Submit the Transaction

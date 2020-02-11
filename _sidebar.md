@@ -2,6 +2,9 @@
 
 * [Home](/)
 * [Getting Started](0/)
+<!-- This link is hidden from the sidebar because workshop participants will not need to see it.
+* [Setting Up the Bootnode](SettingUpTheBootnode.md)
+-->
 	* [Presentation](0/presentation.md)
 
 * [Start a Network Together](1/)

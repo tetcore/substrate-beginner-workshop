@@ -1,98 +1,135 @@
 
-# Objective
+# Setting Up The Bootnode
 
-# Reference material
-https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-18-04
+This workshop depends on two bootnodes running somewhere publicly accessible. In practice this will usually be two nodes on a single cloud vps such as Digital Ocean or Google Cloud. This document guides the workshop host through the process of setting up this configuration.
 
-https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-18-04
-
-https://www.digitalocean.com/community/questions/configure-nginx-for-nodejs-backend-and-react-frontend-app
-
-https://serverfault.com/questions/424452/nginx-enable-site-command
-
-
-# Steps
 ## Base System
-From digital ocean (or similar) create a new machine starting with Ubuntu 18.04.
-SSH in as root
+Create a new VPS starting with Ubuntu 18.04 with SSH permissions. Many of these commands need to be run as root, so it is convenient to start a persistent sudo session with `sudo -i`.
 
-## Setup the web server
-install nginx
-`apt install nginx`
+## Nginx
+We will use Nginx as a reverse proxy and to host a simple web page. Let's start by installing it.
 
-Confirm the server is working by going directly to your IP in the browser. Should see the nginx test page.
+```bash
+apt install nginx
+```
 
-`cd /var/www/html`
-`cp index.nginx-debian.html index.html`
-`vim index.html`
+Confirm the server is working by going directly to your IP in the browser. Should see the nginx test page. The file you just viewed lives at `/var/www/html/index.nginx-debian.html`. This file is only used when a regular `index.html` file is not present. Let's create our own index file.
 
+```bash
+cd /var/www/html
+vim index.html
+```
+
+Then paste in this content
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-        <title>SFBW Substrate Testnet</title>
-<style>
-    body {
-        width: 35em;
-        margin: 0 auto;
-        font-family: Tahoma, Verdana, Arial, sans-serif;
-    }
-</style>
-</head>
-<body>
-<h1>SFBW Substrate Testnet</h1>
-<p>Thanks for joining our Substrate testnet.</p>
+	<head>
+		<title>Denver Substrate Testnet</title>
+		<style>
+			body {
+				width: 35em;
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Denver Substrate Testnet</h1>
+		<p>Thanks for joining our Substrate testnet!</p>
 
-<p>You may compile the node from github
-<a href="https://github.com/substrate-develeoper-hub/substrate-node-template">Substrate Node Template</a>.<br/>
-Download the <a href="spec.json">Chain Specification</a>.<br />
-Download the <a href="alice.json">Prefunded Alice Key</a>.<br />
-</p>
+		<ul>
+			<li>Follow along with <a href="https://substrate.dev/substrate-beginner-workshop/#/0/">The Workshop</a></li>
+			<li>Clone the <a href="https://github.com/substrate-develeoper-hub/substrate-node-template">Substrate Node Template</a>.</li>
+			<li>Download the <a href="spec.json">Chain Specification</a>.</li>
+			<li>Download the <a href="alice.json">Prefunded Alice Key</a>.</li>
+			<li>Connect to <a href="https://polkadot.js.org/apps?rpc=wss://denver.bootnodes.net/alice">Alice's Node</a></li>
+			<li>Connect to <a href="https://polkadot.js.org/apps>rpc=wss://denver.bootnodes.net/bob">Bob's Node</a></li>
+		</ul>
 
-</body>
+	</body>
 </html>
+
 ```
 
 We'll create those linked files later. Confirm the new webpage loads.
 
 ## Adding SSL
-We need a domain. Registering it and setup dns so it points to your server. This process varies a lot by registrar. When your domain loads the webpage we just created, you may proceed to setup SSL.
+We need a domain in order to use SSL. Register it and setup dns so it points to your server. This process varies a lot by registrar. When your domain loads the webpage we just created, you may proceed to setup SSL.
 
 For setting up subdomains like sfbw.bootnodes.net just use an A record
 `sfbw   A   1.2.3.4   3600`
 
-Install certbot
+Install certbot, a tool that makes it easy to register new SSL certificates.
 ```bash
 add-apt-repository ppa:certbot/certbot
 apt install python-certbot-nginx
 ```
-
-Setup server block
+Configure nginx to work as a reverse proxy for both Alice's and Bob's nodes
 ```bash
 cd /etc/nginx/sites-available
 vim sfbw.bootnodes.net
 ```
 
+Replace the contents of the file with this
 ```
 server {
-       listen 80;
-       listen [::]:80;
+  listen 80;
 
-       server_name sfbw.bootnodes.net;
+  server_name denver.bootnodes.net;
 
-       root /var/www/html/;
-       index index.html;
+  root /var/www/html;
+  index index.html;
 
-       location / {
-               try_files $uri $uri/ =404;
-       }
+  location / {
+    try_files $uri $uri/ =404;
+  }
+
+  location /alice {
+    proxy_buffers 16 4k;
+    proxy_buffer_size 2k;
+    proxy_pass http://localhost:9944;
+    proxy_http_version 1.1;
+  }
+
+  location /bob {
+    proxy_buffers 16 4k;
+    proxy_buffer_size 2k;
+    proxy_pass http://localhost:9945;
+    proxy_http_version 1.1;
+  }
+
+# Uncomment these lines to enable reverse proxy for http rpcs as well
+#  location /alice/rpc {
+#    proxy_buffers 16 4k;
+#    proxy_buffer_size 2k;
+#    proxy_pass http://localhost:9933;
+#    proxy_http_version 1.1;
+#  }
+
+#  location /bob/rpc {
+#    proxy_buffers 16 4k;
+#    proxy_buffer_size 2k;
+#    proxy_pass http://localhost:9934;
+#    proxy_http_version 1.1;
+#  }
 }
+
 ```
 
-Enable the new config by linking it from sites-available to sites-enabled
-`ln -s /etc/nginx/sites-available/sfbw.bootnodes.net /etc/nginx/sites-enabled/`
-confirm config format is ok `nginx -t`.
-reload the server `systemctl reload nginx`
+Enable the new config by linking it from `sites-available` to `sites-enabled`.
+
+```bash
+ln -s /etc/nginx/sites-available/sfbw.bootnodes.net /etc/nginx/sites-enabled/
+```
+
+Confirm config format is ok, and if it is, reload nginx.
+```bash
+# Check nginx config syntax
+nginx -t
+
+# Reload the server
+systemctl reload nginx
+```
 
 Use certbot to setup ssl
 `certbot --nginx -d sfbw.bootnodes.net --register-unsafely-without-email`
@@ -100,7 +137,7 @@ You could also fork over your email. It only goes to EFF. I chose not to redirec
 
 Confirm your site loads with ssl https://sfbw.bootnodes.net
 
-## Install Node
+## Build and Run Substrate Node
 ```bash
 # First time around I did the apt/rustup installs manually
 # Script also works as of 1Nov2019
@@ -111,51 +148,17 @@ cd substrate-node-template
 cargo build --release # If cargo was _just_ installed, start a new shell so it's on your path
 ```
 
-## Server blocks for node
-Once the node is built, add server blocks to redirect standard ports 9944 and 9933. These settings assume that the node will expose ws and rpc on ports 9994 and 9993 respectively. That can be done with `--ws-port 9994 --rpc-port 9993`. We'll automate those settings shortly.
+To test that our reverse proxy is working, we'll start a node at Alice's ports and confirm we can connect to it throug hApps, then do likewise for Bob's ports.
 
-Add this at the bottom, and notice the top has changed thanks to certbot. You'll need to adjust the domain name in these lines.
-```
-server {
-  listen 9944 ssl;
-
-  server_name sfbw.bootnodes.net;
-
-  ssl_certificate /etc/letsencrypt/live/sfbw.bootnodes.net/fullchain.pem; # managed by Certbot
-  ssl_certificate_key /etc/letsencrypt/live/sfbw.bootnodes.net/privkey.pem; # managed by Certbot
-
-  location / {
-    proxy_buffers 16 4k;
-    proxy_buffer_size 2k;
-    proxy_pass http://localhost:9994;
-    proxy_http_version 1.1;
-  }
-}
-
-
-server {
-  listen 9933 ssl;
-
-  server_name sfbw.bootnodes.net;
-
-  ssl_certificate /etc/letsencrypt/live/sfbw.bootnodes.net/fullchain.pem; # managed by Certbot
-  ssl_certificate_key /etc/letsencrypt/live/sfbw.bootnodes.net/privkey.pem; # managed by Certbot
-
-  location / {
-    proxy_buffers 16 4k;
-    proxy_buffer_size 2k;
-    proxy_pass http://localhost:9993;
-  }
-}
-
-```
-check syntax and reload
 ```bash
-nginx -t
-systemctl reload nginx
+# Test Alice's ports
+./target/release/node-template --dev
+
+# Test Bob's ports
+./target/release/node-template --dev --ws-port 9945 --rpc-port 9934 --port 30303
 ```
 
-Start your node with --ws-port 9994 --rpc-port 9993 and confirm you can connect with hosted apps. On settings tab use `wss://sfbw.bootnodes.net:9944`
+Confirm you can connect with hosted apps. On settings tab use `wss://sfbw.bootnodes.net/alice` and /bob.
 
 ## Create a shared chainspec
 Create a basic chainspec based on local testnet

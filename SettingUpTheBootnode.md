@@ -39,11 +39,11 @@ Then paste in this content
 
 		<ul>
 			<li>Follow along with <a href="https://substrate.dev/substrate-beginner-workshop/#/0/">The Workshop</a></li>
-			<li>Clone the <a href="https://github.com/substrate-develeoper-hub/substrate-node-template">Substrate Node Template</a>.</li>
+			<li>Clone the <a href="https://github.com/substrate-developer-hub/substrate-node-template">Substrate Node Template</a>.</li>
 			<li>Download the <a href="spec.json">Chain Specification</a>.</li>
 			<li>Download the <a href="alice.json">Prefunded Alice Key</a>.</li>
 			<li>Connect to <a href="https://polkadot.js.org/apps?rpc=wss://denver.bootnodes.net/alice">Alice's Node</a></li>
-			<li>Connect to <a href="https://polkadot.js.org/apps>rpc=wss://denver.bootnodes.net/bob">Bob's Node</a></li>
+			<li>Connect to <a href="https://polkadot.js.org/apps?rpc=wss://denver.bootnodes.net/bob">Bob's Node</a></li>
 		</ul>
 
 	</body>

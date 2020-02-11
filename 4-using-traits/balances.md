@@ -89,7 +89,7 @@ fn revoke_claim(origin, proof: Vec<u8>) {
 
 ```rust
 use support::{decl_module, decl_storage, decl_event, ensure};
-use rstd::vec::Vec;
+use sp_std::vec::Vec;
 use system::ensure_signed;
 use support::traits::{ReservableCurrency};
 

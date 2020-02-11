@@ -29,7 +29,7 @@ Proofs: map Vec<u8> => (T::AccountId, T::BlockNumber);
 
 ```rust
 use support::{decl_storage, decl_module, decl_event};
-use rstd::prelude::Vec;
+use sp_std::prelude::Vec;
 
 pub trait Trait: system::Trait {
 	type Event: From<Event<Self>> + Into<<Self as system::Trait>::Event>;
@@ -51,7 +51,7 @@ decl_storage! {
 }
 
 decl_module! {
-pub struct Module<T: Trait> for enum Call where origin: T::Origin {
+	pub struct Module<T: Trait> for enum Call where origin: T::Origin {
 		fn deposit_event() = default;
 	}
 }

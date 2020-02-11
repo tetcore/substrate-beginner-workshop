@@ -2,7 +2,7 @@
 
 ```rust
 use support::{decl_module, decl_storage, decl_event, ensure};
-use rstd::vec::Vec;
+use sp_std::vec::Vec;
 use system::ensure_signed;
 
 /// The pallet's configuration trait.

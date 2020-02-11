@@ -213,7 +213,7 @@ Remember at that our website offers users to download the pre-funded key. Add th
 
 bottom drive obey lake curtain smoke basket hold race lonely fit walk
 //Alice
-I use password: alice or just a
+I use password: Alice
 Upload the json key to the server
 
 ## Host a frontend

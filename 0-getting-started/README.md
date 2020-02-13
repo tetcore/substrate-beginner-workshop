@@ -15,7 +15,7 @@ If you have any problems with these instructions feel free to:
 	curl https://getsubstrate.io -sSf | bash -s -- --fast
 	```
 
-	> **Note:** Windows users can follow the instructions found here: https://substrate.dev/docs/en/next/getting-started#getting-started-on-windows
+	> **Note:** Windows users can follow the instructions found here: https://substrate.dev/docs/en/overview/getting-started#getting-started-on-windows
 
 2. Clone Substrate Node Template
 

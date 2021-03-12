@@ -1,6 +1,6 @@
-# substrate-beginner-workshop
+# tetcore-beginner-workshop
 
-A collaborative workshop to learn how to use Substrate
+A collaborative workshop to learn how to use Tetcore
 
 ## Overview
 
